@@ -1,9 +1,9 @@
 @echo off
-:: C:\result í´ë”ê°€ ì¡´ìž¬í•˜ì§€ ì•Šìœ¼ë©´ ìƒì„±í•©ë‹ˆë‹¤.
+:: C:\result Æú´õ°¡ Á¸ÀçÇÏÁö ¾ÊÀ¸¸é »ý¼ºÇÕ´Ï´Ù.
 if not exist C:\result\PC mkdir C:\result\PC\export
 
 echo ================================================================
-echo PC-05: ì‚¬ìš©ìž PCì—ì„œ ìƒìš© ë©”ì‹ ì €ë¥¼ ì‚¬ìš©í•˜ê³  ìžˆëŠ”ì§€ë¥¼ ì ê²€
+echo PC-05: »ç¿ëÀÚ PC¿¡¼­ »ó¿ë ¸Þ½ÅÀú¸¦ »ç¿ëÇÏ°í ÀÖ´ÂÁö¸¦ Á¡°Ë
 echo ================================================================
 
 :: Query the registry value and write to the file
@@ -11,24 +11,24 @@ reg query "HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Messenger\Client" > C:
 
 :: Display only the PreventRun value from the registry query
 for /f "tokens=3" %%A in ('reg query "HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Messenger\Client" /v "PreventRun" ^| findstr "PreventRun"') do set PreventRunValue=%%A
-echo PreventRun ê°’: %PreventRunValue%
+echo PreventRun °ª: %PreventRunValue%
 
 echo ================================================================
 
 :: Check the registry value
 reg query "HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Messenger\Client" /v "PreventRun" >nul 2>&1
 if %errorlevel% neq 0 (
-    echo PC-05,ë¶ˆë§Œì¡± >> C:\result\PC\result.txt
-    echo â€» ê²°ê³¼ : ì·¨ì•½
+    echo PC-05,ºÒ¸¸Á· >> C:\result\PC\result.txt
+    echo ¡Ø °á°ú : Ãë¾à
 ) else (
     :: If the key exists, check if the value is 1
     reg query "HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Messenger\Client" /v "PreventRun" | find "0x1" >nul 2>&1
     if %errorlevel% equ 0 (
-        echo PC-05,ë§Œì¡± >> C:\result\PC\result.txt
-        echo â€» ê²°ê³¼ : ì–‘í˜¸ 
+        echo PC-05,¸¸Á· >> C:\result\PC\result.txt
+        echo ¡Ø °á°ú : ¾çÈ£ 
     ) else (
-        echo PC-05,ë¶ˆë§Œì¡± >> C:\result\PC\result.txt
-        echo â€» ê²°ê³¼ : ì·¨ì•½
+        echo PC-05,ºÒ¸¸Á· >> C:\result\PC\result.txt
+        echo ¡Ø °á°ú : Ãë¾à
     )
 )
 echo ================================================================
